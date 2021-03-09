@@ -4,5 +4,6 @@ const merchandiseController = require('../controllers/merchandise');
 
 
 router.get('/', merchandiseController.getFeatured);
+router.post('/upload', merchandiseController.postAntique);
 
 module.exports = router;

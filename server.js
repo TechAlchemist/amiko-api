@@ -1,16 +1,22 @@
 const express = require('express');
-const morgan = require('morgan')
-
-const port = process.env.PORT || 3000;
+const morgan = require('morgan');
+const cors = require('cors');
+const fileUpload = require('express-fileupload');
 
 const app = express();
 
-app.use(express.json());
-app.use(morgan('dev'));
+require('dotenv').config();
 
-require('./database');
+app.use(express.json());
+app.use(express.static('public'));
+app.use(morgan('dev'));
+app.use(cors());
+app.use(fileUpload());
+
+require('./config/database');
 
 const merchandiseRouter = require('./routes/merchandise');
 app.use('/', merchandiseRouter);
 
+const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Port up and listening on port ${port}`));
